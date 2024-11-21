@@ -1,11 +1,11 @@
 import sys
 import re
 import math
-
 from collections import defaultdict
 
 import numpy as np
 import torch
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 def make_prompts_for_amazon_beauty(datasets) -> defaultdict(str):
     prompts = defaultdict(str)
@@ -30,12 +30,16 @@ def is_valid_rating(response):
     return bool(re.match(r"^\d(\.\d{1})?\/5\.0$", response))
 
 # MAE
-def calculate_mae(actual: float, predicted: float) -> float:
-    return abs(actual - predicted)
+# def calculate_mae(actual: float, predicted: float) -> float:
+#     return abs(actual - predicted)
+def calculate_mae(actual:float, predicted: float) -> float:
+    return mean_absolute_error(actual, predicted)
 
 # RMAE
+# def calculate_rmse(actual: float, predicted: float) -> float:
+#     return math.sqrt((actual - predicted) ** 2)
 def calculate_rmse(actual: float, predicted: float) -> float:
-    return math.sqrt((actual - predicted) ** 2)
+    return mean_squared_error(actual, predicted, squared=True)
 
 def calculate_final_result(eval_values: defaultdict(float)) -> (float, float):
     """

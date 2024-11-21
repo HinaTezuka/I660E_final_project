@@ -62,12 +62,16 @@ for reviewerID, prompt in prompts.items():
         actual = labels[reviewerID] # actual value (label)
         predicted = float(response[:3]) # predicted value(if is_valid_response is True, response="?.?/5.0", so extract first"?.?" rating as a float.)
         """ evaluation """
-        MAE = calculate_mae(actual, predicted)
-        RMSE = calculate_rmse(actual, predicted)
-        eval_values["MAE"].append(MAE)
-        eval_values["RMSE"].append(RMSE)
+        # MAE = calculate_mae(actual, predicted)
+        # RMSE = calculate_rmse(actual, predicted)
+        # eval_values["MAE"].append(MAE)
+        # eval_values["RMSE"].append(RMSE)
         # print(f"MAE: {MAE}, RMSE: {RMSE}")
+        eval_values["actual"].append(actual)
+        eval_values["predicted"].append(predicted)
 
 """ results """
 # calculate mean of MAE_list and RMSE_list respectively.
-print(f"final result (MAE, RMSE): {calculate_final_result(eval_values)}")
+MAE = calculate_mae(eval_values["actual"], eval_values["predicted"])
+RMSE = calculate_rmse(eval_values["actual"], eval_values["predicted"])
+print(f"final result (MAE, RMSE): {MAE, RMSE}")
