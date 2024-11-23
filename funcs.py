@@ -7,14 +7,11 @@ import numpy as np
 import torch
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
-def make_prompts_for_amazon_beauty(datasets) -> defaultdict(str):
+def make_prompts_for_amazon_datasets(datasets) -> defaultdict(str):
     prompts = defaultdict(str)
     for review in datasets:
         review_text = review['reviewText'][0]
         reviewerID = review['reviewerID']
-        # print(review_text)
-        # print(reviewerID)
-        # # sys.exit()
         prompt = f"""
         ### Instruction:
         Predict rating for the item.
@@ -23,6 +20,21 @@ def make_prompts_for_amazon_beauty(datasets) -> defaultdict(str):
         Review: {review_text}; Rating:
         """
         prompts[reviewerID] = prompt
+
+    return prompts
+
+def make_prompts_for_yelp_dataset(datasets) -> defaultdict(str):
+    prompts = defaultdict(str) # dict: {index: prompt}
+    for idx, row in enumerate(datasets):
+        review_text = row["text"]
+        prompt = f"""
+        ### Instruction:
+        Predict rating for the item.
+        Given the interaction history of a user with beauty products as follows:
+
+        Review: {review_text}; Rating:
+        """
+        prompts[idx] = prompt
 
     return prompts
 

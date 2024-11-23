@@ -1,0 +1,8 @@
+final result (MAE, RMSE): (0.4553807947019868, 0.7667301324503312)
+
+=================================== RESOURCE INFORMATION ===================================
+ Requested Resource:
+ mem=256000000kb,walltime=168:00:00,ncpus=26,place=pack 
+ Used Resource: 
+ mem=1227404kb,walltime=00:41:27,ncpus=26,cpupercent=110,vmem=46670608kb
+============================================================================================

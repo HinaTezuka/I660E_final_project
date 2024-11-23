@@ -8,22 +8,20 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from datasets import get_dataset_config_names, load_dataset
 
 from funcs import (
-    make_prompts_for_amazon_beauty,
+    make_prompts_for_amazon_datasets,
     is_valid_rating,
     calculate_mae,
     calculate_rmse,
-    calculate_final_result,
 )
 
 """ model cinfigs """
-model_path = "vinai/RecGPT-7B-Instruct"
 device = "cuda" if torch.cuda.is_available() else "cpu"
-
+model_path = "vinai/RecGPT-7B-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
 model = AutoModelForCausalLM.from_pretrained(model_path).to(device)
 
 """ datasets """
-amazon_beauty_ds = load_dataset(path="smartcat/Amazon_All_Beauty_2018", name="reviews", split="train")
+amazon_toys_ds = load_dataset(path="smartcat/Amazon_Toys_and_Games_2018", name="reviews", split="train")
 """
 Dataset({
     features: ['reviewerID', 'reviewerName', 'overall', 'reviewTime', 'asin', 'reviewText', 'summary'],
@@ -33,13 +31,13 @@ Dataset({
 
 """ keep correct label as dict """
 labels = defaultdict(float)
-for review in amazon_beauty_ds:
+for review in amazon_toys_ds:
     reviewerID = review['reviewerID']
-    rating = review['overall'][0] # the last rating is what we want the model to predict(= labels)
+    rating = review['overall'][0]
     labels[reviewerID] = rating
 
 """ make prompts """
-prompts = make_prompts_for_amazon_datasets(amazon_beauty_ds)
+prompts = make_prompts_for_amazon_datasets(amazon_toys_ds)
 """ dict for tracking each MAE and RMSE """
 eval_values = defaultdict(list)
 
@@ -62,11 +60,6 @@ for reviewerID, prompt in prompts.items():
         actual = labels[reviewerID] # actual value (label)
         predicted = float(response[:3]) # predicted value(if is_valid_response is True, response="?.?/5.0", so extract first"?.?" rating as a float.)
         """ evaluation """
-        # MAE = calculate_mae(actual, predicted)
-        # RMSE = calculate_rmse(actual, predicted)
-        # eval_values["MAE"].append(MAE)
-        # eval_values["RMSE"].append(RMSE)
-        # print(f"MAE: {MAE}, RMSE: {RMSE}")
         eval_values["actual"].append(actual)
         eval_values["predicted"].append(predicted)
 
