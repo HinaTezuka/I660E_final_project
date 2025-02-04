@@ -1,7 +1,7 @@
 # I660E AdvancedNLP Re-Implementation
 
 ## Results from original paper
-![スクリーンショット 2024-11-23 18 57 28](https://github.com/user-attachments/assets/4d57adf1-5ab2-4348-b2f4-0df1193f1d28)
+
 
 ## Our results (RecGPT-7B-Instruct)
 MAE: Mean Absolute Error<br>
