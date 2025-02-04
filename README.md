@@ -1,5 +1,8 @@
 # I660E AdvancedNLP Re-Implementation
 
+## Original Paper
+<url>https://aclanthology.org/2024.acl-short.29/</url>
+
 ## Results from original paper
 
 
