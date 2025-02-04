@@ -1,7 +1,7 @@
 # I660E AdvancedNLP Re-Implementation
 
 ## Original Paper
-<url>https://aclanthology.org/2024.acl-short.29/</url>
+<a href="https://aclanthology.org/2024.acl-short.29/">RecGPT: Generative Pre-training for Text-based Recommendation</a>
 
 ## Results from original paper
 
