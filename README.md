@@ -1,4 +1,4 @@
-# I660E AdvancedNLP Re-Implementation
+# I660E Advanced NLP Class Final Project: Re-Implementation
 
 ## Original Paper
 <a href="https://aclanthology.org/2024.acl-short.29/">RecGPT: Generative Pre-training for Text-based Recommendation (ACL 2024)</a>
